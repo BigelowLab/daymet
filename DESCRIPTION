@@ -1,0 +1,18 @@
+Package: daymet
+Type: Package
+Title: OPeNDAP access to daymet data
+Version: 1.0
+Date: 2019-04-25
+Author: Ben Tupper <btupper@bigelow.org>
+Maintainer: Ben Tupper <btupper@bigelow.org>
+Description: Provides simplified access to OPeNDAP daymet data served by ORNL thredds server.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Depends:
+    R (>= 3.0)
+Imports:
+    methods,
+    sp,
+    ncdf4,
+    raster
+RoxygenNote: 6.1.1
