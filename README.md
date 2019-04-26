@@ -73,7 +73,7 @@ leaflet() %>%
     addPolygons(lng = bb[c(1,2,2,1,1)], lat = bb[c(3,3,4,4,3)], fill = FALSE)
 ```
 
-[!grid](https://github.com/BigelowLab/daymet/blob/master/inst/smokies.png)
+![grid](https://github.com/BigelowLab/daymet/blob/master/inst/smokies.png)
 
 ## Accessing station data
 
