@@ -70,7 +70,8 @@ DaymetGridRefClass <- setRefClass("DaymetGridRefClass",
 #' @return a Raster* or NULL
 NULL
 DaymetGridRefClass$methods(
-    get_raster = function(bb, layers = 1, ...){
+    get_raster = function(bb = c(-85.37, -81.29, 33.57, 36.61),
+                          layers = 1, ...){
         daymet_raster(.self$NC,
                       bb = bb,
                       layers = layers,
@@ -127,7 +128,18 @@ daymet_bag <- function(x, verbose = TRUE){
 #' @return RasterLayer or RasterStack
 fetch_daymet_raster <- function(x, param, nav){
     v <- ncdf4::ncvar_get(x, param, start = nav$start, count = nav$count)
-    raster::raster(t(v), template = nav$template)
+    if (inherits(v, "matrix")){
+        r <- raster::raster(t(v), template = nav$template)
+    } else {
+        nlyr <- dim(v)[3]
+        r <- raster::stack(
+            lapply(seq_len(nlyr),
+                function(lyr) {
+                    raster::raster(t(v[,,lyr]), template = nav$template)
+                }))
+        names(r) <- paste("layer", seq(from = nav$start[3], length = nav$count[3]) )
+    }
+    r
 }
 
 
@@ -225,7 +237,7 @@ daymet_index <- function(lon, lat, bag, crs = c("longlat", "daymet", "native")[1
 #' @return a list with
 #'  \itemize{
 #'     \item{start a 3 element vector of starts for x, y and t}
-#'     \item{count a 3 element vector of run lenghts for x, y and t}
+#'     \item{count a 3 element vector of run lengths for x, y and t}
 #'     \item{template an empty Raster layer object}
 #' }
 daymet_nav <- function(bb, layer = 1, bag, ...){
@@ -239,15 +251,17 @@ daymet_nav <- function(bb, layer = 1, bag, ...){
     # compute the lengths
     count <- abs(apply(xy, 2, diff)) + 1
 
+    half <- bag$res/2
+
     list(start = c(min(xy[,1]), min(xy[,2]), min(layer)),
          count = c(count, length(layer)),
          template = raster::raster(ncols = count[1],
                                    nrows = count[2],
                                    #resolution = bag$res,
-                                   xmn = bag$x[ min(xy[,1]) ],
-                                   xmx = bag$x[ max(xy[,1]) ],
-                                   ymn = bag$y[ max(xy[,2]) ], # swapped
-                                   ymx = bag$y[ min(xy[,2]) ], # swapped
+                                   xmn = bag$x[ min(xy[,1]) ] - half,
+                                   xmx = bag$x[ max(xy[,1]) ] + half,
+                                   ymn = bag$y[ max(xy[,2]) ] - half, # swapped
+                                   ymx = bag$y[ min(xy[,2]) ] + half, # swapped
                                    crs = bag$crs)
     )
 }

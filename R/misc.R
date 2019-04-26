@@ -8,7 +8,7 @@ get_crs <- function(name = c("longlat", "lcc", "native")[1]){
 
     switch(tolower(name[1]),
            "longlat" = "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0",
-           paste0("+proj=lcc +lon_0=-100 +lat_0=42.5 +lat_1=25 +lat_2=60",
+           paste("+proj=lcc +lon_0=-100 +lat_0=42.5 +lat_1=25 +lat_2=60",
                   "+x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84",
                   "+towgs84=0,0,0"))
 }

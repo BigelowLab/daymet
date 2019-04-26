@@ -19,7 +19,7 @@ daymet_nav(bb, layer = 1, bag, ...)
 a list with
  \itemize{
     \item{start a 3 element vector of starts for x, y and t}
-    \item{count a 3 element vector of run lenghts for x, y and t}
+    \item{count a 3 element vector of run lengths for x, y and t}
     \item{template an empty Raster layer object}
 }
 }
