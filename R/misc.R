@@ -13,16 +13,29 @@ get_crs <- function(name = c("longlat", "lcc", "native")[1]){
                   "+towgs84=0,0,0"))
 }
 
-#' Guess the parameter from the uri
+#' Guess the parameter from the uri for gridded data
 #'
 #' @export
 #' @param uri character the uri to the resource
 #' @return character best guess of the parameter short hand
-param_from_uri <- function(uri = c("daymet_v3_tmin_2018_na.nc4")){
+param_from_uri_grid <- function(uri = c("daymet_v3_tmin_2018_na.nc4")){
     sapply(strsplit(basename(uri), "_", fixed = TRUE), '[[', 3)
 }
 
-#' Build a daymet uri
+
+#' Guess the parameter from the uri for station data
+#'
+#' @export
+#' @param uri character the uri to the resource
+#' @return character best guess of the parameter short hand
+param_from_uri_station <- function(uri = c("daymet_v3_stnsxval_prcp_1980.nc4")){
+    sapply(strsplit(basename(uri), "_", fixed = TRUE), '[[', 4)
+}
+
+
+
+
+#' Build a daymet uri for gridded data
 #'
 #' @export
 #' @param year 4 digit year (just one please)
@@ -73,6 +86,23 @@ daymet_grid_uri <- function(year = 2018,
 }
 
 
+#' Build a daymet uri for station data
+#'
+#' @export
+#' @param year 4 digit year (just one please)
+#' @param param character the parameter name
+#' @param baseuri character, the base uri
+#' @return charcater uri
+daymet_station_uri <- function(year = 2018,
+                            param = 'tmin',
+                            baseuri = "https://thredds.daac.ornl.gov/thredds/dodsC/ornldaac/1391"){
+
+    # daymet_v3_stnsxval_tmin_2018.nc4
+    bname <- sprintf("daymet_v3_stnsxval_%s_%0.4i.nc4", param[1], as.numeric(year[1]))
+    file.path(baseuri,  bname)
+}
+
+
 
 #' Transform a set of coordinates
 #'
@@ -83,7 +113,7 @@ daymet_grid_uri <- function(year = 2018,
 #' @param from_proj projection of the input coordinates
 #' @param to_proj projection of the output coordinates
 #' @return 2 column matrix of lcc [x,y]
-points_transfrom <- function(x, y = NULL,
+points_transform <- function(x, y = NULL,
                       from_proj = get_crs("longlat"),
                       to_proj = get_crs("daymet")){
 
@@ -104,7 +134,7 @@ points_transfrom <- function(x, y = NULL,
     ll <- cbind(x, y)
     colnames(ll) <- from_names
     ix <- apply(ll, 1, function(x) any(is.na(x)) )
-    input <- as.data.frame(ll[!ix,])
+    input <- as.data.frame(ll[!ix,, drop = FALSE])
     sp::coordinates(input) <- from_names
     sp::proj4string(input) <- from_proj
     output <- as.matrix(sp::coordinates(sp::spTransform(input, to_proj)))

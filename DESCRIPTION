@@ -14,5 +14,7 @@ Imports:
     methods,
     sp,
     ncdf4,
-    raster
+    raster,
+    magrittr,
+    dplyr
 RoxygenNote: 6.1.1

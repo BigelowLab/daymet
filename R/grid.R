@@ -83,7 +83,7 @@ DaymetGridRefClass$methods(
 #' @export
 #' @param uri the uri of the daymet grid resource
 #' @return DaymetGridRefRefClass object
-DaymetGrid <- function(uri){
+DaymetGrid <- function(uri = daymet_grid_uri()){
     DaymetGridRefClass$new(uri)
 }
 
@@ -107,7 +107,7 @@ DaymetGrid <- function(uri){
 daymet_bag <- function(x, verbose = TRUE){
     if (verbose) message("please be patient as cell locations are downloaded")
     list(
-        param = param_from_uri(x$filename),
+        param = param_from_uri_grid(x$filename),
         crs = get_crs("daymet"),
         res = 1000,
         lon = t(ncdf4::ncvar_get(x, "lon")),

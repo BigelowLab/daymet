@@ -77,4 +77,58 @@ leaflet() %>%
 
 ## Accessing station data
 
-TODO
+[Station data](https://daac.ornl.gov/DAYMET/guides/Daymet_V3_Stn_Level_CrossVal.html) 
+are stored by year and variable (tmin, tmax, prcp). The number of stations may vary by year. 
+We provide facilities for searching for stations nearest to a user specified location, and 
+for retrieving data for a specified station.
+
+```
+library(daymet)
+library(leaflet)
+library(magrittr)
+uri <- daymet_station_uri(year = 2018, param = 'tmin')
+X <- DaymetStations(uri)
+
+lon = -70.180833
+lat = 43.799444
+x <- X$closest_stations(lon, lat)
+
+# this is a little slow for first time use
+# but subsequent calls for the same object instance are fast.
+(station_name <- X$station_name(x$index))
+ [1] "GRAY"                  "LONG IS"               "PORTLAND INTL JETPORT" "DURHAM"               
+ [5] "WINDHAM 2NW"           "POLAND"                "BATH"                  "WISCASSET AP"         
+ [9] "HOLLIS"                "TURNER"   
+
+leaflet() %>%
+    addTiles() %>%
+    addMarkers(lng = x$lon, lat = x$lat,   
+                label = station_name,
+                labelOptions = labelOptions(noHide = T)) %>%
+    addCircleMarkers(lng = lon, lat = lat, color = 'black',
+                radius = 20,
+                label = 'location',
+                labelOptions = labelOptions(noHide = T))
+```
+
+![grid](https://github.com/BigelowLab/daymet/blob/master/inst/stations.png)
+
+
+Extracting data for a station is pretty easy by station_name, station_id or index 
+into the dataset.
+
+```
+library(tidyverse)
+
+GrayMe <- X$station_data(name = "GRAY") %>%
+    gather(type, tmin, -date)
+
+X$close()
+
+ggplot(data = GrayMe, aes(x=date, y=tmin, colour=type)) +
+    geom_line() + 
+    labs(y = "tmin (C)", title = "Gray, Maine: 2018 Minimum Daily Temperature")
+
+```
+
+![grid](https://github.com/BigelowLab/daymet/blob/master/inst/gray_me.png)

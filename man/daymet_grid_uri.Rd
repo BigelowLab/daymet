@@ -2,7 +2,7 @@
 % Please edit documentation in R/misc.R
 \name{daymet_grid_uri}
 \alias{daymet_grid_uri}
-\title{Build a daymet uri}
+\title{Build a daymet uri for gridded data}
 \usage{
 daymet_grid_uri(year = 2018, mosaic = "na", param = "tmin",
   interval = "daily",
@@ -23,5 +23,5 @@ daymet_grid_uri(year = 2018, mosaic = "na", param = "tmin",
 charcater uri
 }
 \description{
-Build a daymet uri
+Build a daymet uri for gridded data
 }
