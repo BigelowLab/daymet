@@ -4,8 +4,11 @@
 \alias{daymet_station_uri}
 \title{Build a daymet uri for station data}
 \usage{
-daymet_station_uri(year = 2018, param = "tmin",
-  baseuri = "https://thredds.daac.ornl.gov/thredds/dodsC/ornldaac/1391")
+daymet_station_uri(
+  year = 2018,
+  param = "tmin",
+  baseuri = "https://thredds.daac.ornl.gov/thredds/dodsC/ornldaac/1391"
+)
 }
 \arguments{
 \item{year}{4 digit year (just one please)}

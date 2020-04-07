@@ -2,7 +2,7 @@
 % Please edit documentation in R/misc.R
 \name{get_crs}
 \alias{get_crs}
-\title{Retrieve a coordiante reference string by name}
+\title{Retrieve a coordinate reference string by name}
 \usage{
 get_crs(name = c("longlat", "lcc", "native")[1])
 }
@@ -14,5 +14,5 @@ is the same as 'lcc'.}
 coordinate reference string in proj4 style
 }
 \description{
-Retrieve a coordiante reference string by name
+Retrieve a coordinate reference string by name
 }

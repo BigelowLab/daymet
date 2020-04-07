@@ -4,8 +4,12 @@
 \alias{points_transform}
 \title{Transform a set of coordinates}
 \usage{
-points_transform(x, y = NULL, from_proj = get_crs("longlat"),
-  to_proj = get_crs("daymet"))
+points_transform(
+  x,
+  y = NULL,
+  from_proj = get_crs("longlat"),
+  to_proj = get_crs("daymet")
+)
 }
 \arguments{
 \item{x}{numeric locations such as decimal degrees longitude.  If y is not provided then

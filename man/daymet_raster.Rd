@@ -4,8 +4,13 @@
 \alias{daymet_raster}
 \title{Retrieve one or more raster layers of daymet data}
 \usage{
-daymet_raster(x, bb = c(-77, -51.5, 37.9, 56.7), layers = 1,
-  bag = daymet_bag(x), ...)
+daymet_raster(
+  x,
+  bb = c(-77, -51.5, 37.9, 56.7),
+  layers = 1,
+  bag = daymet_bag(x),
+  ...
+)
 }
 \arguments{
 \item{x}{a ncdf4 object}

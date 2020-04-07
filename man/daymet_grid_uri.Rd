@@ -4,9 +4,13 @@
 \alias{daymet_grid_uri}
 \title{Build a daymet uri for gridded data}
 \usage{
-daymet_grid_uri(year = 2018, mosaic = "na", param = "tmin",
+daymet_grid_uri(
+  year = 2018,
+  mosaic = "na",
+  param = "tmin",
   interval = "daily",
-  baseuri = "https://thredds.daac.ornl.gov/thredds/dodsC/ornldaac")
+  baseuri = "https://thredds.daac.ornl.gov/thredds/dodsC/ornldaac"
+)
 }
 \arguments{
 \item{year}{4 digit year (just one please)}

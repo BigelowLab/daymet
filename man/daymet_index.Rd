@@ -5,8 +5,13 @@
 \title{Compute indices into daymet arrays from lon/lat or from the native
 daymet Lambert conformal conic coordinates}
 \usage{
-daymet_index(lon, lat, bag, crs = c("longlat", "daymet", "native")[1],
-  bbox = FALSE)
+daymet_index(
+  lon,
+  lat,
+  bag,
+  crs = c("longlat", "daymet", "native")[1],
+  bbox = FALSE
+)
 }
 \arguments{
 \item{lon}{vector of longitudes}

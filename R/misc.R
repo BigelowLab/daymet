@@ -1,4 +1,4 @@
-#' Retrieve a coordiante reference string by name
+#' Retrieve a coordinate reference string by name
 #'
 #' @export
 #' @param name character - either 'longlat', or 'daymet' or 'native' The latter
@@ -12,6 +12,15 @@ get_crs <- function(name = c("longlat", "lcc", "native")[1]){
                   "+x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84",
                   "+towgs84=0,0,0"))
 }
+
+#' Retrieve the resolution
+#'
+#' @export
+#' @return a two element [x,y] numeric
+get_res <- function(){
+  c(1000,1000)
+}
+
 
 #' Guess the parameter from the uri for gridded data
 #'
