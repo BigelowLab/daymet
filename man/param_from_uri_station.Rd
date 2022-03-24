@@ -4,7 +4,7 @@
 \alias{param_from_uri_station}
 \title{Guess the parameter from the uri for station data}
 \usage{
-param_from_uri_station(uri = c("daymet_v3_stnsxval_prcp_1980.nc4"))
+param_from_uri_station(uri = c("daymet_v4_stnsxval_prcp_na_1980.nc4"))
 }
 \arguments{
 \item{uri}{character the uri to the resource}

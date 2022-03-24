@@ -23,17 +23,19 @@ ncss_root_url <- function(){
 #' @param year character or numeric, 4 digit year to access
 #' @param var character, the variable name
 #' @param region character, the name of the region (default 'na')
+#' @param version character, "v4"
 #' @param root character, the root URL
 #' @return the base url
 ncss_base_url <- function(year = format(Sys.Date()-365, "%Y"),
                      var = "dayl",
                      region = "na",
+                     version = daymet_version(),
                      root = ncss_root_url()){
 
     if (is.numeric(year)) year <- sprintf("%0.4i", year)
     file.path(root,
               year,
-              sprintf("daymet_v3_%s_%s_%s.nc4", var, year, region))
+              sprintf("daymet_%s_%s_%s_%s.nc4", version, var, year, region))
 }
 
 #' Handle miscellaneous query elements
@@ -103,14 +105,18 @@ ncss_basename <- function(uri = ncss_base_url()){
 #' @export
 #' @param uri character, the URL of the resource
 #' @param dest character, file and path of the destination file
+#' @param quiet logical see \code{\link[utils]{download.file}}
 #' @return named logical where TRUE is success
 ncss_download <- function(uri = ncss_url(),
-                          dest = file.path(".", ncss_basename(uri))){
+                          dest = file.path(".", ncss_basename(uri)),
+                          quiet = TRUE){
 
   path <- dirname(dest)
   if (!dir.exists(path)) ok <- dir.create(path, recursive = TRUE)
 
-  ok <- system2("wget", args = c(uri, sprintf("--output-document=%s", dest))) == 0
+  #ok <- system2("wget", args = c(uri, sprintf("--output-document=%s", dest))) == 0
+  #ok <- system(sprintf("wget -O %s '%s'", dest, uri))
+  ok <- download.file(uri, dest, quiet = quiet) <= 0
 
   if (ok) {
     ok <- sapply(dest, file.exists)
@@ -124,15 +130,16 @@ ncss_download <- function(uri = ncss_url(),
 
 #' Load NCSS data as a raster brick
 #'
+#' @export
 #' @param filename character, the path and name of the NCDF file to read
 #' @param modify_spatial logical, if TRUE then update the projection and resolution
 #' @return \{code{\link[raster]{brick}} object
-ncss_load_brick <- function(filename, modify_spatial = TRUE){
+ncss_read_brick <- function(filename, modify_spatial = TRUE){
 
-  B <- raster::brick(filename)
+  B <- suppressWarnings(raster::brick(filename))
   if (modify_spatial[1]){
-    raster::crs(B) <- get_crs()
-    raster::res(B) <- get_res()
+    raster::crs(B) <- get_crs("lcc")
+    raster::extent(B) <- as.vector(raster::extent(B)) * get_res()[c(1,1,2,2)]
   }
   B
 }

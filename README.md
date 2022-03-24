@@ -24,7 +24,7 @@ devtools::install_github("BigelowLab/daymet")
 ## Accessing grids
 
 First, instantiate a DaymetGridRefClass object with a uri. This process can take a bit of time
-and requires some patience as two large matrices of cell lccations are automatically
+and requires some patience as two large matrices of cell locations are automatically
 downloaded.
 
 A uri can be constructed for a given year and parameter.

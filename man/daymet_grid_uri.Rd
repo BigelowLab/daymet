@@ -9,6 +9,7 @@ daymet_grid_uri(
   mosaic = "na",
   param = "tmin",
   interval = "daily",
+  version = daymet_version(),
   baseuri = "https://thredds.daac.ornl.gov/thredds/dodsC/ornldaac"
 )
 }
@@ -20,6 +21,8 @@ daymet_grid_uri(
 \item{param}{character the parameter name}
 
 \item{interval}{character daily, monthly or annual}
+
+\item{version}{character, "v4"}
 
 \item{baseuri}{character, the base uri}
 }

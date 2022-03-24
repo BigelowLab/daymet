@@ -8,6 +8,7 @@ ncss_base_url(
   year = format(Sys.Date() - 365, "\%Y"),
   var = "dayl",
   region = "na",
+  version = daymet_version(),
   root = ncss_root_url()
 )
 }
@@ -17,6 +18,8 @@ ncss_base_url(
 \item{var}{character, the variable name}
 
 \item{region}{character, the name of the region (default 'na')}
+
+\item{version}{character, "v4"}
 
 \item{root}{character, the root URL}
 }

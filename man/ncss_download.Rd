@@ -4,12 +4,18 @@
 \alias{ncss_download}
 \title{Download a NCSS resource as NetCDF}
 \usage{
-ncss_download(uri = ncss_url(), dest = file.path(".", ncss_basename(uri)))
+ncss_download(
+  uri = ncss_url(),
+  dest = file.path(".", ncss_basename(uri)),
+  quiet = TRUE
+)
 }
 \arguments{
 \item{uri}{character, the URL of the resource}
 
 \item{dest}{character, file and path of the destination file}
+
+\item{quiet}{logical see \code{\link[utils]{download.file}}}
 }
 \value{
 named logical where TRUE is success

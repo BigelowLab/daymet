@@ -4,7 +4,7 @@
 \alias{param_from_uri_grid}
 \title{Guess the parameter from the uri for gridded data}
 \usage{
-param_from_uri_grid(uri = c("daymet_v3_tmin_2018_na.nc4"))
+param_from_uri_grid(uri = c("daymet_v4_tmin_2018_na.nc4"))
 }
 \arguments{
 \item{uri}{character the uri to the resource}

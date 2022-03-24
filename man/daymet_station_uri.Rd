@@ -7,6 +7,8 @@
 daymet_station_uri(
   year = 2018,
   param = "tmin",
+  version = daymet_version(),
+  region = "na",
   baseuri = "https://thredds.daac.ornl.gov/thredds/dodsC/ornldaac/1391"
 )
 }
@@ -14,6 +16,10 @@ daymet_station_uri(
 \item{year}{4 digit year (just one please)}
 
 \item{param}{character the parameter name}
+
+\item{version}{character, "v4"}
+
+\item{region}{character, "na" for North America}
 
 \item{baseuri}{character, the base uri}
 }
