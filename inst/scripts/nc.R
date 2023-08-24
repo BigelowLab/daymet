@@ -6,7 +6,7 @@ uri <- "https://thredds.daac.ornl.gov/thredds/dodsC/ornldaac/1840/daymet_v4_dail
 X <- nc_open(uri)
 
 
-x <- ncvar_get(X, varid = "tmin", start = c(1,1,1), count = c(1,1, 1))
+(x <- ncvar_get(X, varid = "tmin", start = c(1,1,1), count = c(1,1, 1)))
 
 
 x <- ncvar_get(X, varid = "tmin", start = c(1,1,1), count = c(-1,-1, 1))
@@ -19,8 +19,8 @@ nc_close(X)
 
 uri2 <- "http://oceandata.sci.gsfc.nasa.gov/opendap/MODISA/L3SMI/2021/001/A2021001.L3m_DAY_CHL_chl_ocx_4km.nc"
 X = nc_open(uri2)
-x <- ncvar_get(X, varid = "chl_ocx", start = c(1,1), count = c(-1,-1))
-
+(x <- ncvar_get(X, varid = "chl_ocx", start = c(1,1), count = c(-1,-1)))
+nc_close(X)
 
 # > sessionInfo()
 # R version 4.1.2 (2021-11-01)
